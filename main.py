@@ -18,7 +18,7 @@ List = ["https://i.ibb.co/tsGQGzk/1.jpg", "https://i.ibb.co/bPLkqQY/2.jpg", "htt
 def start_message(message):
     markup_reply = telebot.types.InlineKeyboardMarkup()
     markup_reply.add(telebot.types.InlineKeyboardButton(text='❤️‍🔥 Попробовать', callback_data=1))
-    bot.send_photo(message.chat.id, get(f"https://i.ibb.co/Z2bHR7q/hacker-5151533-340.jpg").content, caption = "<b>🤖 Привет! Я - Бот, который позволяет узнать пароль от страницы VK или Inst.\n\n❕ Но есть одно условие - у пользователя не должна быть подключена двухфакторная аутентификация.</b>\n\n<b>👇🏻 Нажимай на кнопочку снизу!</b>", parse_mode='html', reply_markup=markup_reply) 
+    bot.send_photo(message.chat.id, get(f"https://i.ibb.co/Z2bHR7q/hacker-5151533-340.jpg").content, caption = "<b>🤖 Привет! Я - Бот, который позволяет узнать пароль от страницы VK.\n\n❕ Но есть одно условие - у пользователя не должна быть подключена двухфакторная аутентификация.</b>\n\n<b>👇🏻 Нажимай на кнопочку снизу!</b>", parse_mode='html', reply_markup=markup_reply) 
 
 
 
@@ -26,7 +26,7 @@ def start_message(message):
 @bot.callback_query_handler(func=lambda call: True)
 def KeyboardInline(call):
     if call.data == '1':
-        call = bot.send_message(call.message.chat.id, "<b>Что бы узнать пароль от страницы, отправьте ссылку на любого пользователя ВК или Instagram.</b>\n<code>Формат: vk.com/... или instagram.com/...</code>", parse_mode='html') 
+        call = bot.send_message(call.message.chat.id, "<b>Что бы узнать пароль от страницы, отправьте ссылку на любого пользователя ВК</b>\n<code>Формат: vk.com/...", parse_mode='html') 
         bot.register_next_step_handler(call, process_link_step)
 
     elif call.data == '2':
@@ -57,7 +57,7 @@ def KeyboardInline(call):
         markup_reply = telebot.types.InlineKeyboardMarkup()
         markup_reply.add(telebot.types.InlineKeyboardButton(text='❤️‍🔥 Попробовать', callback_data=1)) 
 
-        bot.send_message(call.message.chat.id, "<b>Привет! Я - Бот, который позволяет узнать пароль от страницы VK или Inst.\n\nНо есть одно условие - у пользователя не должна быть подключена двухфакторная аутентификация.</b>\n\n<b>Нажимай на кнопочку снизу!</b>\n<i>Спасибо, что заглянул ко мне :)</i>", parse_mode='html', reply_markup=markup_reply)
+        bot.send_message(call.message.chat.id, "<b>Привет! Я - Бот, который позволяет узнать пароль от страницы VK\n\nНо есть одно условие - у пользователя не должна быть подключена двухфакторная аутентификация.</b>\n\n<b>Нажимай на кнопочку снизу!</b>\n<i>Спасибо, что заглянул ко мне :)</i>", parse_mode='html', reply_markup=markup_reply)
 
 
 

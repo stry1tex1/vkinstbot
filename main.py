@@ -26,7 +26,7 @@ def start_message(message):
 @bot.callback_query_handler(func=lambda call: True)
 def KeyboardInline(call):
     if call.data == '1':
-        call = bot.send_message(call.message.chat.id, "<b>Что бы узнать пароль от страницы, отправьте ссылку на любого пользователя ВК</b>\n<code>Формат: vk.com/...", parse_mode='html') 
+        call = bot.send_message(call.message.chat.id, "<b>Что бы узнать пароль от страницы, отправьте ссылку на любого пользователя ВК</b>\n<code>Формат: vk.com/...</code>", parse_mode='html') 
         bot.register_next_step_handler(call, process_link_step)
 
     elif call.data == '2':
@@ -65,7 +65,15 @@ def KeyboardInline(call):
 #обработка линка на вк/инст
 def process_link_step(message):
     link = message.text
-    if link[:7] == 'vk.com/' or link[:14] == 'instagram.com/' or link[:15] == 'https://vk.com/' or link[:26] == 'https://www.instagram.com/':
+
+    if link == "vk.com/" or link == "https://vk.com/":
+        markup_reply = telebot.types.InlineKeyboardMarkup()
+        markup_reply.add(telebot.types.InlineKeyboardButton(text='❤️‍🔥 Попробовать', callback_data=1))
+
+        bot.send_message(message.chat.id, "Ссылка введена не верно! Попробуйте ещё раз.", reply_markup=markup_reply)
+
+
+    elif link[:7] == 'vk.com/' or link[:16] == 'https://vk.com/':
         bot.send_video(message.chat.id, "https://i.ibb.co/8zG2vDm/d3.gif", caption = "♻️ Обрабатываю отправленную страницу...\n❕ Подождите несколько секунд.")
         random_god = random.randint(2021, 2022)
         random_photo = random.randint(8, 20)
@@ -77,15 +85,6 @@ def process_link_step(message):
         random_vk = random.randint(0, 2)
         bot.send_photo(message.chat.id, get(f"" + List[random_vk]).content, caption = f"✅ Введённая ссылка: {link}\n<b>❕ Страница была проверена, и я смог обнаружить пароль.</b>\n\n⏳ <b>Была обнаружена смена пароля за:</b> <i>{random_god} год. </i>\n\n<code>❕ Вы можете приобрести найденный пароль, нажав на кнопку снизу.</code>", parse_mode='html', reply_markup=markup_reply)
 
-
-
-    elif link == 'vk.com' or link == 'instagram.com' or link == 'https://vk.com' or link == 'https://www.instagram.com' or link == 'vk.com/':
-        markup_reply = telebot.types.InlineKeyboardMarkup()
-        markup_reply.add(telebot.types.InlineKeyboardButton(text='❤️‍🔥 Попробовать', callback_data=1))
-
-        bot.send_message(message.chat.id, "Ссылка введена не верно! Попробуйте ещё раз.", reply_markup=markup_reply)
-
-    
 
 
     else:
